@@ -1,4 +1,4 @@
-# Terraform-driven Customization Using Modern CI/CD (Oktane 20220
+# Terraform-driven Customization Using Modern CI/CD (Oktane 2022)
 
 
 ### Hello and welcome! Here you can find various links for documentation and tutorials that we think you will find helpful in regards to this talk. As well, you will be able to find all of the code shown in the presentation as well as a link to the presentation (once available) should you wish to re-watch it. 
