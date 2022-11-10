@@ -2,7 +2,7 @@ name: Auth0 Workflow
 on: push
 defaults:
   run:
-    working-directory: 02-action-ci
+    working-directory: 01-action-ci
 jobs:
   configure-env:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       with:
         name: env-file
         path: |
-          02-action-ci/.env
+          01-action-ci/.env
         if-no-files-found: error
 
   build-actions:
@@ -43,7 +43,7 @@ jobs:
       with:
         name: actions-out
         path: |
-          02-action-ci/actions_out/**/*
+          01-action-ci/actions_out/**/*
         if-no-files-found: error
 
   plan-staging:
@@ -55,11 +55,11 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: actions-out
-          path: 02-action-ci/actions_out
+          path: 01-action-ci/actions_out
       - uses: actions/download-artifact@v3
         with:
           name: env-file
-          path: 02-action-ci
+          path: 01-action-ci
       - uses: hashicorp/setup-terraform@v2
       - name: "Staging: terraform init"
         run: |
@@ -75,7 +75,7 @@ jobs:
         with:
           name: staging-terraform-plan
           path: |
-            02-action-ci/tfplan
+            01-action-ci/tfplan
           if-no-files-found: error
   
   deploy-staging:
@@ -89,15 +89,15 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: actions-out
-          path: 02-action-ci/actions_out
+          path: 01-action-ci/actions_out
       - uses: actions/download-artifact@v3
         with:
           name: staging-terraform-plan
-          path: 02-action-ci
+          path: 01-action-ci
       - uses: actions/download-artifact@v3
         with:
           name: env-file
-          path: 02-action-ci
+          path: 01-action-ci
       - uses: hashicorp/setup-terraform@v2
       - name: "Staging: terraform init"
         run: |
@@ -118,7 +118,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: env-file
-          path: 02-action-ci
+          path: 01-action-ci
   
   deploy-prod:
     runs-on: ubuntu-latest
@@ -131,11 +131,11 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: actions-out
-          path: 02-action-ci/actions_out
+          path: 01-action-ci/actions_out
       - uses: actions/download-artifact@v3
         with:
           name: env-file
-          path: 02-action-ci
+          path: 01-action-ci
       - uses: hashicorp/setup-terraform@v2
       - name: "Prod: terraform init"
         run: |
